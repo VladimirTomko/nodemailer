@@ -123,7 +123,7 @@ route.post("/vietown-refferal", (req, res) => {
   const mailData = {
     from: "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: `Zmena stavu objednávky - ${status.toUpperCase()}`,
+    subject: `Získal si zľavu 10% - VIETOWN`,
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
