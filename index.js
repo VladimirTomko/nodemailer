@@ -74,27 +74,33 @@ route.post("/vietown-new", (req, res) => {
 });
 
 route.post("/vietown-status", (req, res) => {
-  const { email, name, isDelivery } = req.body;
+  const { email, name, status } = req.body;
+  const htmlMessage = `<h3>Ahoj ${name}</h3>
+  <p>Tvojej objednávke sa zmenil stav na: </p>
+  <h3>${status}</h3>
+  <p>Dobrú chuť ti praje tím Vietown!</p>`;
+
   const mailData = {
     from: "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: "Vaša objednávka",
-    text: "Hello, this is text",
-    html:
-      "<b>Hey " +
-      name +
-      "</b><br> This is our first message sent with Nodemailer",
+    subject: "Zmena stavu objednávky - VIETOWN",
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
   };
 
   const transporter = nodemailer.createTransport({
-    host: process.env.HOST,
-    port: process.env.SMTP_PORT,
-    auth: { user: process.env.USERNAME, pass: process.env.PASSWORD },
+    host: process.env.VIETOWN_SMTP_HOST,
+    port: process.env.VIETOWN_SMTP_PORT,
+    auth: {
+      user: process.env.VIETOWN_SMTP_USERNAME,
+      pass: process.env.VIETOWN_SMTP_PASSWORD,
+    },
     secure: true,
   });
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
+      res.status(500).send({ success: false });
       return console.log(error);
     }
     res.status(200).send({ success: true, message_id: info.messageId });
