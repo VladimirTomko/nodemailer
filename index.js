@@ -1,16 +1,16 @@
-// import express from "express";
-// import bodyParser from "body-parser";
-// import nodemailer from "nodemailer";
-// import dotenv from "dotenv";
-// import htmlToText from "html-to-text";
-// import cors from "cors";
+import express from "express";
+import bodyParser from "body-parser";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import htmlToText from "html-to-text";
+import cors from "cors";
 
-const express = require("express")
-const bodyParser = require("body-parser")
-const nodemailer = require("nodemailer")
-const dotenv = require("dotenv")
-const htmlToText = require("html-to-text")
-const cors = require("cors")
+// const express = require("express")
+// const bodyParser = require("body-parser")
+// const nodemailer = require("nodemailer")
+// const dotenv = require("dotenv")
+// const htmlToText = require("html-to-text")
+// const cors = require("cors")
 dotenv.config();
 
 const app = express();
