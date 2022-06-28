@@ -4,13 +4,6 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import htmlToText from "html-to-text";
 import cors from "cors";
-
-//const express = require("express");
-// const bodyParser = require("body-parser");
-// const nodemailer = require("nodemailer");
-// const dotenv = require("dotenv");
-// const htmlToText = require("html-to-text");
-// const cors = require("cors");
 dotenv.config();
 
 const app = express();
@@ -21,6 +14,16 @@ const route = express.Router();
 
 const port = 8800;
 app.use("/mail", route);
+
+const transporter = nodemailer.createTransport({
+  host: process.env.VIETOWN_SMTP_HOST,
+  port: process.env.VIETOWN_SMTP_PORT,
+  auth: {
+    user: process.env.VIETOWN_SMTP_USERNAME,
+    pass: process.env.VIETOWN_SMTP_PASSWORD,
+  },
+  secure: true,
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
@@ -54,16 +57,6 @@ route.post("/vietown-new", (req, res) => {
     html: htmlMessage,
   };
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.VIETOWN_SMTP_HOST,
-    port: process.env.VIETOWN_SMTP_PORT,
-    auth: {
-      user: process.env.VIETOWN_SMTP_USERNAME,
-      pass: process.env.VIETOWN_SMTP_PASSWORD,
-    },
-    secure: true,
-  });
-
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
       res.status(500).send({ success: false });
@@ -88,15 +81,52 @@ route.post("/vietown-status", (req, res) => {
     html: htmlMessage,
   };
 
-  const transporter = nodemailer.createTransport({
-    host: process.env.VIETOWN_SMTP_HOST,
-    port: process.env.VIETOWN_SMTP_PORT,
-    auth: {
-      user: process.env.VIETOWN_SMTP_USERNAME,
-      pass: process.env.VIETOWN_SMTP_PASSWORD,
-    },
-    secure: true,
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ success: false });
+      return console.log(error);
+    }
+    res.status(200).send({ success: true, message_id: info.messageId });
   });
+});
+
+route.post("/vietown-new-account", (req, res) => {
+  const { email, name } = req.body;
+  const htmlMessage = `<h3>Ahoj ${name}</h3>
+  <p>Ďakujeme za registráciu.</p>
+  <p>Ako bonus sme ti na účet pripísali 10% zľavu na ďalšiu objednávku, ktorá sa ti automaticky pripíše.</ú>
+  <p>Dobrú chuť ti praje tím Vietown!</p>`;
+
+  const mailData = {
+    from: "Vietown <restauracia@vietown.sk>",
+    to: email,
+    subject: `Nový účet - VIETOWN`,
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ success: false });
+      return console.log(error);
+    }
+    res.status(200).send({ success: true, message_id: info.messageId });
+  });
+});
+
+route.post("/vietown-refferal", (req, res) => {
+  const { email, name, invitedName } = req.body;
+  const htmlMessage = `<h3>Ahoj ${name}</h3>
+  <p>Tvoj kamarát ${refferal} sa zaregistroval cez tvoj link a obidvaja ste od nás získali 10% zľavu na ďalšiu objednávku!</p>
+    <p>Dobrú chuť ti praje tím Vietown!</p>`;
+
+  const mailData = {
+    from: "Vietown <restauracia@vietown.sk>",
+    to: email,
+    subject: `Zmena stavu objednávky - ${status.toUpperCase()}`,
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
+  };
 
   transporter.sendMail(mailData, (error, info) => {
     if (error) {
