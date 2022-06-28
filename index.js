@@ -117,7 +117,7 @@ route.post("/vietown-new-account", (req, res) => {
 route.post("/vietown-refferal", (req, res) => {
   const { email, name, invitedName } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
-  <p>Tvoj kamarát ${refferal} sa zaregistroval cez tvoj link a obidvaja ste od nás získali 10% zľavu na ďalšiu objednávku!</p>
+  <p>Tvoj kamarát ${invitedName} sa zaregistroval cez tvoj link a obidvaja ste od nás získali 10% zľavu na ďalšiu objednávku!</p>
     <p>Dobrú chuť ti praje tím Vietown!</p>`;
 
   const mailData = {
