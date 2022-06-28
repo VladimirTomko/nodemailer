@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { htmlToText } from "html-to-text";
+import htmlToText from "html-to-text";
 import cors from "cors";
 dotenv.config();
 
@@ -13,10 +13,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const route = express.Router();
 
 const port = process.env.PORT || 3001;
-app.use("/api/mail", route);
+app.use("/mail", route);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
+});
+
+route.get("/", (req, res) => {
+  res.status(200).send("Hello World");
 });
 
 route.post("/vietown-new", (req, res) => {
@@ -39,7 +43,7 @@ route.post("/vietown-new", (req, res) => {
     from: "Vietown <restauracia@vietown.sk>",
     to: email,
     subject: "Nová objednávka - VIETOWN",
-    text: htmlToText(htmlMessage),
+    text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
 
