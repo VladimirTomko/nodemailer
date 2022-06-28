@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 const route = express.Router();
 
-const port = process.env.PORT || 3001;
+const port = 8800;
 app.use("/mail", route);
 
 app.listen(port, () => {
