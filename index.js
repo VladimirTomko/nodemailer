@@ -76,7 +76,7 @@ route.post("/vietown-status", (req, res) => {
   const mailData = {
     from: "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: `Zmena stavu objednávky - ${status.toUpperCase()}`,
+    subject: `Zmena stavu objednávky - ${status}`,
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
