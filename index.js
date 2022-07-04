@@ -34,7 +34,8 @@ route.get("/", (req, res) => {
 });
 
 route.post("/vietown-new", (req, res) => {
-  const { email, name, total, items, isDelivery, paymentType } = req.body;
+  const { email, name, total, items, isDelivery, paymentType, isEuphoria } =
+    req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Ďakujeme ti za objednávku!</p>
   <p>Objednal si si:</p>
@@ -47,12 +48,14 @@ route.post("/vietown-new", (req, res) => {
   }</b> a <b>${
     isDelivery ? "objednávku ti donesieme" : "po objednávku si prídeš osobne"
   }</b>.</p>
-  <p>Dobrú chuť ti praje tím Vietown!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
 
   const mailData = {
-    from: "Vietown <restauracia@vietown.sk>",
+    from: isEuphoria
+      ? "Euphoria <restauracia@euphoria-food.sk"
+      : "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: "Nová objednávka - VIETOWN",
+    subject: `Nová objednávka - ${isEuphoria ? "EUPHORIA" : "VIETOWN"}`,
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
@@ -67,14 +70,16 @@ route.post("/vietown-new", (req, res) => {
 });
 
 route.post("/vietown-status", (req, res) => {
-  const { email, name, status } = req.body;
+  const { email, name, status, isEuphoria } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Tvojej objednávke sa zmenil stav na: </p>
   <h3>${status}</h3>
-  <p>Dobrú chuť ti praje tím Vietown!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
 
   const mailData = {
-    from: "Vietown <restauracia@vietown.sk>",
+    from: isEuphoria
+      ? "Euphoria <restauracia@euphoria-food.sk"
+      : "Vietown <restauracia@vietown.sk>",
     to: email,
     subject: `Zmena stavu objednávky - ${status}`,
     text: htmlToText.htmlToText(htmlMessage),
@@ -91,16 +96,18 @@ route.post("/vietown-status", (req, res) => {
 });
 
 route.post("/vietown-new-account", (req, res) => {
-  const { email, name } = req.body;
+  const { email, name, isEuphoria } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Ďakujeme za registráciu.</p>
   <p>Ako bonus sme ti na účet pripísali 10% zľavu na ďalšiu objednávku, ktorá sa ti automaticky pripíše.</ú>
-  <p>Dobrú chuť ti praje tím Vietown!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
 
   const mailData = {
-    from: "Vietown <restauracia@vietown.sk>",
+    from: isEuphoria
+      ? "Euphoria <restauracia@euphoria-food.sk"
+      : "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: `Nový účet - VIETOWN`,
+    subject: `Nový účet - ${isEuphoria ? "EUPHORIA" : "VIETOWN"}`,
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
@@ -115,15 +122,17 @@ route.post("/vietown-new-account", (req, res) => {
 });
 
 route.post("/vietown-refferal", (req, res) => {
-  const { email, name, invitedName } = req.body;
+  const { email, name, invitedName, isEuphoria } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Tvoj kamarát ${invitedName} sa zaregistroval cez tvoj link a obidvaja ste od nás získali 10% zľavu na ďalšiu objednávku!</p>
-    <p>Dobrú chuť ti praje tím Vietown!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
 
   const mailData = {
-    from: "Vietown <restauracia@vietown.sk>",
+    from: isEuphoria
+      ? "Euphoria <restauracia@euphoria-food.sk"
+      : "Vietown <restauracia@vietown.sk>",
     to: email,
-    subject: `Získal si zľavu 10% - VIETOWN`,
+    subject: `Získal si zľavu 10% - ${isEuphoria ? "EUPHORIA" : "VIETOWN"}`,
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
   };
