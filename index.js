@@ -48,7 +48,7 @@ route.post("/vietown-new", (req, res) => {
   }</b> a <b>${
     isDelivery ? "objednávku ti donesieme" : "po objednávku si prídeš osobne"
   }</b>.</p>
-  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Euphoria" : "Vietown"}!</p>`;
 
   const mailData = {
     from: isEuphoria
@@ -74,7 +74,7 @@ route.post("/vietown-status", (req, res) => {
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Tvojej objednávke sa zmenil stav na: </p>
   <h3>${status}</h3>
-  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Euphoria" : "Vietown"}!</p>`;
 
   const mailData = {
     from: isEuphoria
@@ -100,7 +100,7 @@ route.post("/vietown-new-account", (req, res) => {
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Ďakujeme za registráciu.</p>
   <p>Ako bonus sme ti na účet pripísali 10% zľavu na ďalšiu objednávku, ktorá sa ti automaticky pripíše.</ú>
-  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Euphoria" : "Vietown"}!</p>`;
 
   const mailData = {
     from: isEuphoria
@@ -125,7 +125,7 @@ route.post("/vietown-refferal", (req, res) => {
   const { email, name, invitedName, isEuphoria } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Tvoj kamarát ${invitedName} sa zaregistroval cez tvoj link a obidvaja ste od nás získali 10% zľavu na ďalšiu objednávku!</p>
-  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Vietown" : "Euphoria"}!</p>`;
+  <p>Dobrú chuť ti praje tím ${isEuphoria ? "Euphoria" : "Vietown"}!</p>`;
 
   const mailData = {
     from: isEuphoria
