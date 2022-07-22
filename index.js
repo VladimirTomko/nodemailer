@@ -212,7 +212,7 @@ route.post("/admin-new", (req, res) => {
 route.post("/zoznam", (req, res) => {
   const body = req.body;
   const htmlMessage = `<h2>Tvoj zoznam kontaktov</h2>${body.data?.map(
-    (i) => `<br/>Meno: ${item.name || "Nezadané"}<br/>Email: ${
+    (item) => `<br/>Meno: ${item.name || "Nezadané"}<br/>Email: ${
       item.email || "Nezadané"
     }<br/>Telefón: ${item.phone || "Nezadané"}<br/>Bydlisko: ${
       item.city || "Nezadané"
