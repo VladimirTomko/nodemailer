@@ -225,7 +225,7 @@ route.post("/zoznam", (req, res) => {
       item.rozmerstrechy || "Nezadané"
     }<br/>Typ strechy: ${
       item.typstrechy || "Nezadané"
-    }<br/>Predstavuje si cenu ${item.cena + "€" || "Nezadané"}`
+    }<br/>Predstavuje si cenu ${item.cena + "€" || "Nezadané"}<br/><br/>`
   )}`;
 
   const mailData = {
