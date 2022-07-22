@@ -177,20 +177,20 @@ route.post("/dotacie-new", (req, res) => {
 
 route.post("/admin-new", (req, res) => {
   const body = req.body;
-  const htmlMessage = `<h2>Nový kontakt</h2><br/><br/>Meno: ${
+  const htmlMessage = `<h2>Nový kontakt</h2><br/>Meno: ${
     body.name || "Nezadané"
   }<br/>Email: ${body.email || "Nezadané"}<br/>Telefón: ${
     body.phone || "Nezadané"
   }<br/>Bydlisko: ${body.city || "Nezadané"} okres ${
     body.okres || "Nezadané"
   }<br/>\
-  Akontácia: ${body.akontacia || "Nezadané"}€<br/>Splátka: ${
+  Akontácia: ${body.akontacia + "€" || "Nezadané"}<br/>Splátka: ${
     body.splatka || "Nezadané"
-  }€<br/>Preddavok: ${body.preddavok || "Nezadané"}€<br/>Ročná spotreba: ${
+  }€<br/>Preddavok: ${body.preddavok + "€" || "Nezadané"}<br/>Ročná spotreba: ${
     body.spotreba || "Nezadané"
   }<br/>Rozmer strechy: ${body.rozmerstrechy || "Nezadané"}<br/>Typ strechy: ${
     body.typstrechy || "Nezadané"
-  }<br/>Predstavuje si cenu ${body.cena || "Nezadané"}€`;
+  }<br/>Predstavuje si cenu ${body.cena + "€" || "Nezadané"}`;
 
   const mailData = {
     from: "Dotácie na fotovoltaiku <info@dotacienafotovoltaiku.sk",
