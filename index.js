@@ -145,3 +145,52 @@ route.post("/vietown-refferal", (req, res) => {
     res.status(200).send({ success: true, message_id: info.messageId });
   });
 });
+
+//dotacie
+
+route.post("/dotacie-new", (req, res) => {
+  const body = req.body;
+  const htmlMessage = `<h3>Dobrý deň, ${body.name}.</h3>\
+  Na základe Vašich požiadaviek začíname vyhľadávať spoločnosť, <br>\
+  ktorá vyhovuje a spĺňa všetky kritériá Vami zadané <br>\
+  a taktiež vyhovuje aj <b>INTERNÝM KRITÉRIÁM NÁŠHO PORTÁLU</b>.<br><br>\
+  <h4>\
+  Kritéria nášho portálu sú následovné:\
+  </h4><ul><li>spoločnosť musí mať zakotvenú aspon 20 ročnú záruku na zariadenie v jej zmluvných podmienkach</li><li>spoločnosť musí vedieť zabezpečiť inštaláciu fotovoltickej elektrárne na kľúč</li><li>spoločnosť musí vedieť sprostredkovať dotácie priamo klientovi</li></ul>\
+    <p>Ak všetky tieto atribúty nami vybraná firma spĺňa, tak v najbližších dňoch Vás ich obchodný zástupca bude kontaktovať. Poprosili by sme Vás aby ste po kontakte s obchodným zástupcom vybranej firmy dali spätnú väzbu, aby sme zaistili že všetko bude prebiehať podľa Vašich predstáv.<br/><br/> S pozdravom, <br/>Váš tím Dotácie na fotovoltaiku<br/><br/></p>`;
+
+  const mailData = {
+    from: "Dotácie na fotovoltaiku <info@dotacienafotovoltaiku.sk",
+    to: body.email,
+    subject: "Ste o krok bližšie k lacnejším energiám!",
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
+  };
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ success: false });
+      return console.log(error);
+    }
+    res.status(200).send({ success: true, message_id: info.messageId });
+  });
+});
+route.post("/admin-new", (req, res) => {
+  const body = req.body;
+  const htmlMessage = `${JSON.stringify(body, null, 2)}`;
+
+  const mailData = {
+    from: "Dotácie na fotovoltaiku <info@dotacienafotovoltaiku.sk",
+    to: ["tomkovladko@gmail.com"],
+    subject: "Nový kontakt",
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ success: false });
+      return console.log(error);
+    }
+    res.status(200).send({ success: true, message_id: info.messageId });
+  });
+});
