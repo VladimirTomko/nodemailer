@@ -194,7 +194,7 @@ route.post("/admin-new", (req, res) => {
 
   const mailData = {
     from: "Dotácie na fotovoltaiku <info@dotacienafotovoltaiku.sk",
-    to: ["tomkovladko@gmail.com"],
+    to: ["tomkovladko@gmail.com", "cervenansky.m@gmail.com "],
     subject: "Nový kontakt",
     text: htmlToText.htmlToText(htmlMessage),
     html: htmlMessage,
