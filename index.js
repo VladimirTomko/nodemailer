@@ -208,3 +208,39 @@ route.post("/admin-new", (req, res) => {
     res.status(200).send({ success: true, message_id: info.messageId });
   });
 });
+
+route.post("/zoznam", (req, res) => {
+  const body = req.body;
+  const htmlMessage = `<h2>Tvoj zoznam kontaktov</h2>${body.data?.map(
+    (i) => `<br/>Meno: ${item.name || "Nezadané"}<br/>Email: ${
+      item.email || "Nezadané"
+    }<br/>Telefón: ${item.phone || "Nezadané"}<br/>Bydlisko: ${
+      item.city || "Nezadané"
+    } okres ${item.okres || "Nezadané"}<br/>\
+  Akontácia: ${item.akontacia + "€" || "Nezadané"}<br/>Splátka: ${
+      item.splatka || "Nezadané"
+    }€<br/>Preddavok: ${
+      item.preddavok + "€" || "Nezadané"
+    }<br/>Ročná spotreba: ${item.spotreba || "Nezadané"}<br/>Rozmer strechy: ${
+      item.rozmerstrechy || "Nezadané"
+    }<br/>Typ strechy: ${
+      item.typstrechy || "Nezadané"
+    }<br/>Predstavuje si cenu ${item.cena + "€" || "Nezadané"}`
+  )}`;
+
+  const mailData = {
+    from: "Dotácie na fotovoltaiku <info@dotacienafotovoltaiku.sk",
+    to: body.email,
+    subject: "Zoznam kontaktov",
+    text: htmlToText.htmlToText(htmlMessage),
+    html: htmlMessage,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ success: false });
+      return console.log(error);
+    }
+    res.status(200).send({ success: true, message_id: info.messageId });
+  });
+});
