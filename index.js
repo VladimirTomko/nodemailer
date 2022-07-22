@@ -174,7 +174,7 @@ route.post("/dotacie-new", (req, res) => {
     res.status(200).send({ success: true, message_id: info.messageId });
   });
 });
-s;
+
 route.post("/admin-new", (req, res) => {
   const body = req.body;
   const htmlMessage = `<h2>Nový kontakt</h2><br/><br/>Meno: ${
