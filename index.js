@@ -42,7 +42,7 @@ route.post("/vietown-new", (req, res) => {
   <ul>
   ${items.map((item) => "<li>" + item + "</li>").join("")}
   </ul>
-  <p><b>Celková cena je: ${total}€</b></p>
+  <p><b>Celková cena ${isDelivery && "s donáškou "}je : ${total}€</b></p>
   <p>Vybral/a si si platbu <b>${
     paymentType === "cash" ? "v hotovosti" : "kartou"
   }</b> a <b>${
@@ -99,7 +99,7 @@ route.post("/vietown-new-account", (req, res) => {
   const { email, name, isEuphoria } = req.body;
   const htmlMessage = `<h3>Ahoj ${name}</h3>
   <p>Ďakujeme za registráciu.</p>
-  <p>Ako bonus sme ti na účet pripísali 10% zľavu na ďalšiu objednávku, ktorá sa ti automaticky pripíše.</ú>
+  <p>Ako bonus sme ti na účet pripísali 10% zľavu, ktorá sa ti automaticky uplatní na najbližšiu objednávku.</ú>
   <p>Dobrú chuť ti praje tím ${isEuphoria ? "Euphoria" : "Vietown"}!</p>`;
 
   const mailData = {
